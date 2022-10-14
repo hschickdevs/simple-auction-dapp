@@ -440,7 +440,7 @@ export default function Home() {
                           {
                             (auctionBidders && auctionBidders.length > 0) && auctionBidders.map((bidder, index) => {
                               return <li key={`${bidder}-${index}`}>
-                                <a href={`https://etherscan.io/address/${bidder}`} target="_blank">
+                                <a href={`https://etherscan.io/address/${bidder}`}>
                                   {bidder}
                                 </a>
                               </li>
