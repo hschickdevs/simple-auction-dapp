@@ -18,8 +18,8 @@ contract SimpleAuction {
     event AuctionEnded(address winner, uint amount);
     event TreasuryBalanceReturned(address claimee, uint amount);
     
-    constructor(uint _biddingTime, address payable _beneficiary) public {
-        beneficiary = _beneficiary;
+    constructor(uint _biddingTime) public {
+        beneficiary = payable(msg.sender);
         auctionStartTime = now;
         auctionEndTime = now + _biddingTime;
         biddingTime = _biddingTime;
