@@ -461,7 +461,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <p>&copy; 2022 Block Explorer</p>
+        <p>&copy; 2022 Harrison Schick</p>
       </footer>
     </div>
   )
