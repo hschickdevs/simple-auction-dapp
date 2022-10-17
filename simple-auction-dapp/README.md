@@ -10,7 +10,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 2. Enter the project directory:
     ```bash
-    cd lottery-dapp
+    cd simple-auction-dapp
     ```
 
 3. Install the dependencies:
