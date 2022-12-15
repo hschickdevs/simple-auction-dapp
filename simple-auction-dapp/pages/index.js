@@ -20,12 +20,6 @@ export default function Home() {
   const [auctionStartTime, setAuctionStart] = useState(null)
   const [auctionEndTime, setAuctionEnd] = useState(null)
 
-  // Old lottery variables
-  const [lotteryPot, setLotteryPot] = useState()
-  const [lotteryPlayers, setPlayers] = useState([])
-  const [lotteryHistory, setLotteryHistory] = useState([])
-  const [lotteryId, setLotteryId] = useState()
-
   useEffect(() => {
     updateState();
     // const id = setInterval(() => {
@@ -90,30 +84,10 @@ export default function Home() {
   }
 
 
-  // const getPot = async () => {
-  //   const pot = await lcContract.methods.getBalance().call()
-  //   setLotteryPot(web3.utils.fromWei(pot, 'ether'))
-  // }
-
-  // const getPlayers = async () => {
-  //   const players = await lcContract.methods.getPlayers().call()
-  //   setPlayers(players)
-  // }
   const getBidders = async () => {
     const bidders = await auctionContract.methods.getBidders().call()
     setAuctionBidders(bidders)
   }
-
-  // const getHistory = async (id) => {
-  //   setLotteryHistory([])
-  //   for (let i = parseInt(id); i > 0; i--) {
-  //     const winnerAddress = await lcContract.methods.lotteryHistory(i).call()
-  //     const historyObj = {}
-  //     historyObj.id = i
-  //     historyObj.address = winnerAddress
-  //     setLotteryHistory(lotteryHistory => [...lotteryHistory, historyObj])
-  //   }
-  // }
 
   const updateBidAmt = event => {
     if (web3) {
@@ -131,21 +105,6 @@ export default function Home() {
     setClaimableBalance(_claimableBalance)
   }
 
-  const enterLotteryHandler = async () => {
-    setError('')
-    setSuccessMsg('')
-    try {
-      await lcContract.methods.enter().send({
-        from: address,
-        value: '15000000000000000',
-        gas: 300000,
-        gasPrice: null
-      })
-      updateState()
-    } catch(err) {
-      setError(err.message)
-    }
-  }
   const placeBidHandler = async () => {
     setError('')
     setSuccessMsg('')
@@ -175,20 +134,6 @@ export default function Home() {
     }
   }
 
-  const pickWinnerHandler = async () => {
-    setError('')
-    setSuccessMsg('')
-    console.log(`address from pick winner :: ${address}`)
-    try {
-      await lcContract.methods.pickWinner().send({
-        from: address,
-        gas: 300000,
-        gasPrice: null
-      })
-    } catch(err) {
-      setError(err.message)
-    }
-  }
   const claimBalanceHandler = async () => {
     setError('')
     setSuccessMsg('')
@@ -260,24 +205,6 @@ export default function Home() {
       setAuctionStart(await contract.methods.auctionStartTime().call())
       setAuctionEnd(await contract.methods.auctionEndTime().call())
       setSuccessMsg('Auction has been reset.')
-    } catch(err) {
-      setError(err.message)
-    }
-  }
-
-  const payWinnerHandler = async () => {
-    setError('')
-    setSuccessMsg('')
-    try {
-      await lcContract.methods.payWinner().send({
-        from: address,
-        gas: 300000,
-        gasPrice: null
-      })
-      console.log(`lottery id :: ${lotteryId}`)
-      const winnerAddress = await lcContract.methods.lotteryHistory(lotteryId).call()
-      setSuccessMsg(`The winner is ${winnerAddress}`)
-      updateState()
     } catch(err) {
       setError(err.message)
     }
